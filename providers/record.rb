@@ -48,15 +48,15 @@ action :create do
     create
     Chef::Log.info "Record created: #{name}"
   elsif value != record.value.first
-    if overwrite == "false"
+    if overwrite
+      record.destroy
+      create
+      Chef::Log.info "Record overwritten: #{name}"
+    else
       record.destroy
       record.value << value
       record.save
       Chef::Log.info "Record appended: #{name}"
-    else
-      record.destroy
-      create
-      Chef::Log.info "Record overwritten: #{name}"
     end
   end
 end
