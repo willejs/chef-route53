@@ -7,4 +7,4 @@ attribute :zone_id,               :kind_of => String
 attribute :aws_access_key_id,     :kind_of => String
 attribute :aws_secret_access_key, :kind_of => String
 attribute :ttl,                   :kind_of => String, :default => "300"
-attribute :overwrite,             :kind_of => String, :default => "true"
+attribute :overwrite,             :equal_to => [true, false], :default => true
