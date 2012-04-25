@@ -28,6 +28,7 @@ end
 xslt.run_action( :install )
 
 fog = gem_package "fog" do
+  version "0.8.2"
   action :nothing
 end
 fog.run_action( :install )
