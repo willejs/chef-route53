@@ -23,7 +23,7 @@ action :create do
   end
 
   def zone
-    @zone ||= Fog::DNS.new({ :provider => "AWS",
+    @zone ||= Fog::DNS.new({ :provider => "aws",
                              :aws_access_key_id => new_resource.aws_access_key_id,
                              :aws_secret_access_key => new_resource.aws_secret_access_key }
                            ).zones.get( new_resource.zone_id )
@@ -32,7 +32,7 @@ action :create do
   def create
     begin
       zone.records.create({ :name => name,
-                            :ip => value,
+                            :value => value,
                             :type => type,
                             :ttl => ttl })
     rescue Excon::Errors::BadRequest => e
