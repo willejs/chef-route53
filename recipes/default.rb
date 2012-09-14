@@ -18,11 +18,19 @@
 #
 
 xml = package "libxml2-dev" do
+  case node[:platform]
+  when "CentOS","RedHat","Fedora"
+    package_name "libxml2-devel"
+  end
   action :nothing
 end
 xml.run_action( :install )
 
 xslt = package "libxslt1-dev" do
+  case node[:platform]
+  when "CentOS","RedHat","Fedora"
+    package_name "libxslt-devel"
+  end
   action :nothing
 end
 xslt.run_action( :install )
