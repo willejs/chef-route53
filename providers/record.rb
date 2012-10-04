@@ -38,6 +38,7 @@ action :create do
     rescue Excon::Errors::BadRequest => e
       Chef::Log.info Nokogiri::XML( e.response.body ).xpath( "//xmlns:Message" ).text
     end
+    new_resource.updated_by_last_action(true)
   end
 
   record = zone.records.all.select do |record|
@@ -56,6 +57,7 @@ action :create do
       record.destroy
       record.value << value
       record.save
+      new_resource.updated_by_last_action(true)
       Chef::Log.info "Record appended: #{name}"
     end
   end
