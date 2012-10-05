@@ -16,7 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "xml"
+xml = package "libxml2-dev" do
+    action :nothing
+end
+xml.run_action( :install )
+
+xslt = package "libxslt1-dev" do
+    action :nothing
+end
+xslt.run_action( :install )
 
 chef_gem "fog" do
   version "1.4.0"
