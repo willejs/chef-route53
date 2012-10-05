@@ -16,6 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "xml"
 
 chef_gem "fog" do
   version "1.4.0"
