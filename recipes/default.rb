@@ -16,21 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "apt"
-include_recipe "build-essential"
-
-case node['platform']
-when "centos", "redhat", "amazon", "scientific"
-  pkgs = %w{libxml2-devel libxslt-devel}
-else
-  pkgs = %w{libxml2-dev libxslt-dev}
-end
-
-pkgs.each do |pkg|
-  package pkg do
-    action :install
-  end
-end
+include_recipe "xml::ruby"
 
 chef_gem "fog" do
   action :install
