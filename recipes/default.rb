@@ -32,7 +32,6 @@ pkgs.each do |pkg|
   end
 end
 
-gem_package "fog"
-
-require 'rubygems'
-Gem.clear_paths
+chef_gem "fog" do
+  action :install
+end
