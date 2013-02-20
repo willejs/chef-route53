@@ -46,6 +46,7 @@ action :create do
   if record.nil?
     create
     Chef::Log.info "Record created: #{name}"
+    new_resource.updated_by_last_action(true)
   elsif value != record.value.first
     if overwrite
       record.destroy
@@ -86,6 +87,8 @@ action :delete do
 
   if not record.nil?
     record.destroy
-    Chef::Log.info "Record removed: #{name}"
+    create
+    Chef::Log.info "Record modified: #{name}"
+    new_resource.updated_by_last_action(true)
   end
 end

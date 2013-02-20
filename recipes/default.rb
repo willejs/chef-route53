@@ -19,8 +19,17 @@
 include_recipe "apt"
 include_recipe "build-essential"
 
-%w{libxml2-dev libxslt-dev}.each do |pkg|
-  package pkg
+case node['platform']
+when "centos", "redhat", "amazon", "scientific"
+  pkgs = %w{libxml2-devel libxslt-devel}
+else
+  pkgs = %w{libxml2-dev libxslt-dev}
+end
+
+pkgs.each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
 gem_package "fog"
