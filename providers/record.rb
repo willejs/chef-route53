@@ -62,3 +62,32 @@ action :create do
     end
   end
 end
+
+action :delete do
+  require "fog"
+  require "nokogiri"
+
+  def name
+    @name ||= new_resource.name + "."
+  end
+
+  def type
+    @type ||= new_resource.type
+  end
+
+  def zone
+    @zone ||= Fog::DNS.new({ :provider => "aws",
+                             :aws_access_key_id => new_resource.aws_access_key_id,
+                             :aws_secret_access_key => new_resource.aws_secret_access_key }
+                           ).zones.get( new_resource.zone_id )
+  end
+
+  record = zone.records.all.select do |record|
+    record.name == name && record.type == type
+  end.first
+
+  if not record.nil?
+    record.destroy
+    Chef::Log.info "Record removed: #{name}"
+  end
+end
