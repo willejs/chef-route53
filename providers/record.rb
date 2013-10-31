@@ -48,16 +48,14 @@ action :create do
     Chef::Log.info "Record created: #{name}"
     new_resource.updated_by_last_action(true)
   elsif value != record.value.first
-    if overwrite
+    unless overwrite == false
       record.destroy
       create
-      Chef::Log.info "Record overwritten: #{name}"
+      Chef::Log.info "Record modified: #{name}"
     else
-      record.destroy
-      record.value << value
-      record.save
-      new_resource.updated_by_last_action(true)
-      Chef::Log.info "Record appended: #{name}"
+      Chef::Log.info "Record #{name} should have been modified, but overwrite is set to false."
+      Chef::Log.debug "Current value: #{record.value.first}"
+      Chef::Log.debug "Desired value: #{value}"
     end
   end
 end
