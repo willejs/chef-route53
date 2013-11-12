@@ -23,7 +23,7 @@ action :create do
   end
 
   def zone
-    if new_resource.aws_access_key_id and new_resource.aws_secret_access_key
+    if defined? new_resource.aws_access_key_id and defined? new_resource.aws_secret_access_key
       @zone ||= Fog::DNS.new({ :provider => "aws",
                                :aws_access_key_id => new_resource.aws_access_key_id,
                                :aws_secret_access_key => new_resource.aws_secret_access_key }
