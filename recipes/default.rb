@@ -20,5 +20,5 @@ include_recipe "xml::ruby"
 
 chef_gem "fog" do
   action :install
-  version '~> 1.19.0'
+  version '~> 1.4.0'
 end
